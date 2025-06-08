@@ -1,4 +1,47 @@
-node_modules
-dist
+# Node.js
+node_modules/
+dist/
+.vitepress/dist
+npm-debug.log*
+.yarn*
+.pnpm*
+*.tsbuildinfo
+
+# Vite artifacts
+.vite/
+
+# LangFlow runtime state (symlinked/shared)
+flows/
+vectorstore/
+logs/
+__pycache__/
+*.sqlite3
+
+# Virtual Environments
+.venv/
+.env
+.env.*
+
+# Python
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+.eggs/
+pip-log.txt
+pip-delete-this-directory.txt
+htmlcov/
+.tox/
+.coverage
+.cache/
+.mypy_cache/
+.dmypy.json
+.pytest_cache/
+
+# VSCode + system-specific
 .DS_Store
-setup/*.swp
+.idea/
+.vscode/
+*.swp
+
