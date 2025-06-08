@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Barry Sharp’s Pro Mover</title>
+  <meta name="description" content="LangFlow AI Assistant in GameBoy UI">
+
+<style>
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modal-inner {
+  background: #f8f8f8;
+  padding: 1rem;
+  width: 480px;
+  max-width: 90vw;
+  box-shadow: 0 0 0 4px black;
+}
+
+.modal-inner.framed {
+  border: var(--gb-border);
+}
+
+.modal img {
+  animation: bob 2s infinite;
+  image-rendering: pixelated;
+  max-height: 192px; /* Bigger Barry */
+  margin: 1rem auto;
+  display: block;
+}
+
+@keyframes bob {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+}
+
+.progress-bar-container {
+  position: relative;
+  width: 100%;
+  height: 1rem;
+  border: 2px solid black;
+  background-color: var(--gb-bg);
+  margin-bottom: 1rem;
+  box-shadow: inset -4px -4px 0 0 #000;
+}
+
+.progress-bar-container::after {
+  content: "";
+  display: block;
+  height: 100%;
+  width: 65%; /* Sync with p65 */
+  background-color: #a3613c; /* GameBoy orange */
+}
+
+.stats span {
+  font-size: 0.85rem;
+  font-weight: bold;
+}
+
+#barryIntroModal .opponent {
+  margin-top: -0.15rem;
+  margin-bottom: -0.5rem;
+}
+
+.modal {
+  transition: opacity 0.3s ease;
+  opacity: 1;
+}
+
+.modal.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.modal {
+  display: flex;
+  align-items: flex-start; /* 👈 push up */
+  justify-content: center;
+  padding-top: -0.00rem;        /* 👈 optional fine-tuning */
+}
+
+</style>
+
+  <script type="module" crossorigin src="/BSPM-new/assets/index-DJ7ehME-.js"></script>
+  <link rel="stylesheet" crossorigin href="/BSPM-new/assets/index-Dfn6SyKH.css">
+</head>
+<body>
+
+<div class="wrapper">
+
+  <header class="framed primary">
+    <h1>Barry Sharp’s Pro Mover</h1>
+  </header>
+
+  <main>
+
+    <!-- Prompt Panel -->
+    <section class="framed contains-code">
+      <h2>Studio Prompt</h2>
+      <div class="viewable-code">
+        <form onsubmit="handlePrompt(); return false;">
+          <input type="text" id="studioHelperInput" placeholder="Type your prompt..." />
+          <button type="submit">[ ASK STUDIO ASSISTANT ]</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- System Status -->
+    <section class="framed contains-code">
+      <h2>System Monitor</h2>
+      <div class="viewable-code">
+        <div class="framed primary">
+          <p>RAM: 16GB</p>
+          <div class="progress-bar p65"></div>
+          <p><small><span class="status-dot"></span> OLLAMA: MISTRAL (ACTIVE)</small></p>
+          <p><small><span class="status-dot"></span> PHI-3: (IDLE)</small></p>
+          <p><small><span class="status-dot"></span> RAG INDEX: BARRY_KB (READY)</small></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Project Agent Controls -->
+    <section class="framed contains-code">
+      <h2>Project Agent</h2>
+      <div class="viewable-code">
+        <button onclick="logCommand('Project Manager activated')">[ PROJECT MANAGER ]</button>
+        <form onsubmit="logCommand('Executed: ' + document.getElementById('projectCommand').value); return false;">
+          <input type="text" id="projectCommand" placeholder="Enter command..." />
+          <button type="submit">[ EXECUTE TASK ]</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Assistant Output -->
+    <section class="framed contains-code">
+      <h2>Studio Assistant Output</h2>
+      <div class="viewable-code">
+        <div class="framed secondary" id="studioHelperOutput">
+          <p><em>Awaiting prompt...</em></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Log Terminal -->
+    <section class="framed contains-code">
+      <h2>System Log</h2>
+      <div class="viewable-code">
+        <div class="framed tertiary" id="logDisplay" style="max-height:160px; overflow-y:auto;">
+          <p>[System initialized...]</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="framed">
+    <p><small>GameBoy UI by Luttje. Adapted for LangFlow AI development.</small></p>
+  </footer>
+
+</div>
+
+<script>
+function handlePrompt() {
+  const input = document.getElementById('studioHelperInput');
+  const output = document.getElementById('studioHelperOutput');
+  const log = document.getElementById('logDisplay');
+  const val = input.value.trim();
+  if (!val) return;
+
+  output.innerHTML = '<p><strong>Assistant:</strong> ' + val + '</p>';
+  const timestamp = new Date().toLocaleTimeString();
+  const logEntry = document.createElement("p");
+  logEntry.textContent = `[${timestamp}] Prompt submitted: "${val}"`;
+  log.appendChild(logEntry);
+  log.scrollTop = log.scrollHeight;
+}
+
+function logCommand(command) {
+  const log = document.getElementById('logDisplay');
+  const timestamp = new Date().toLocaleTimeString();
+  const line = document.createElement("p");
+  line.textContent = `[${timestamp}] ${command}`;
+  log.appendChild(line);
+  log.scrollTop = log.scrollHeight;
+}
+
+function closeModal() {
+  const modal = document.getElementById('barryIntroModal');
+  modal.classList.add('hidden');
+  setTimeout(() => {
+    modal.classList.remove('active');
+    modal.style.display = 'none';
+  }, 300);
+}
+</script>
+
+<div id="barryIntroModal" class="modal active">
+  <div class="framed neutral github" style="width: 520px; max-width: 95vw; padding: 0.05rem 0.75rem;">
+    <div class="stats">
+      <h2>BARRY SHARP.</h2>
+      <div style="display: flex; justify-content: space-between; margin-top: -0.5rem;">
+        <span>HP</span>
+        <span>69/100</span>
+      </div>
+      <div class="progress-bar-container p65"></div>
+    </div><br />
+    <div class="opponent">
+      <img src="/BSPM-new/assets/barry_head.png" alt="barry sharp" style="max-height: 256px;" />
+    </div>
+    <div class="framed" style="margin-top: 0.5rem;">
+      <p class="message" style="text-align: left;">
+        <strong>ya know what, man?</strong><br /><br />
+        i don't approve of this.
+      </p>
+      <p style="text-align: left;"><br />
+        <a onclick="closeModal()" class="button">[ GET ON THE TRUCK ]</a><br />
+        <a href="http://www.broadstreetmovers.com" target="_blank" class="button">[ QUIT ]</a>
+      </p>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
