@@ -45,3 +45,17 @@ htmlcov/
 .vscode/
 *.swp
 
+# Build artifacts
+/build/
+scripts/test-build.sh
+
+
+# 🛑 LangFlow Runtime State (shared, temp, cache)
+flows/
+logs/
+vectorstore/
+*.swp
+*.tmp
+.cache/
+*.log
+
