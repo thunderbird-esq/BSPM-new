@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Barry Sharp’s Pro Mover — Boot</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles/css-pokemon-gameboy.css">
+  <style>
+    body {{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: var(--gb-bg);
+      font-family: monospace;
+    }}
+    .splash-container {{
+      text-align: center;
+    }}
+    .logo {{
+      image-rendering: pixelated;
+      max-width: 90%;
+      height: auto;
+      margin-bottom: 1rem;
+    }}
+  </style>
+</head>
+<body>
+  <div class="splash-container">
+    <div class="framed primary">
+      <img class="logo" src="assets/barry-logo.png" alt="Barry Sharp Logo">
+      <p>Welcome to the Barry Sharp Construct</p>
+      <p><em>LangFlow OS Interface for GBStudio Dev</em></p>
+      <button onclick="window.location.href='index.html'">[ PRESS START ]</button>
+    </div>
+  </div>
+</body>
+</html>

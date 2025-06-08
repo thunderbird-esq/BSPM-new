@@ -1,0 +1,59 @@
+name: Publish release on tag push
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    env:
+      RELEASE_FILE_NAME: 'css-pokemon-gameboy-${{ github.ref_name }}'
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build the minified css to dist-release
+        run: npm run build:css
+
+      - name: Zip Release
+        uses: TheDoctor0/zip-release@0.7.6
+        with:
+          type: 'zip'
+          filename: ../${{ env.RELEASE_FILE_NAME }}.min.zip
+          path: 'template.html styles'
+          directory: 'dist-release'
+
+      - name: Build the full css to dist-release
+        run: npm run build:css:full
+
+      - name: Zip Release
+        uses: TheDoctor0/zip-release@0.7.6
+        with:
+          type: 'zip'
+          filename: ../${{ env.RELEASE_FILE_NAME }}.zip
+          path: 'template.html styles'
+          directory: 'dist-release'
+
+      - name: Create Release on GitHub
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: '${{ env.RELEASE_FILE_NAME }}.min.zip,${{ env.RELEASE_FILE_NAME }}.zip'
+          removeArtifacts: true
+          body: 'Automatic release created by GitHub Action.'
+          prerelease: true

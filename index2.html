@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Barry Sharp’s Pro Mover</title>
+  <meta name="description" content="LangFlow AI Assistant in GameBoy UI">
+  <link rel="stylesheet" href="/styles/css-pokemon-gameboy.css" />
+
+<style>
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modal-inner {
+  background: #f8f8f8;
+  padding: 1rem;
+  width: 480px;
+  max-width: 90vw;
+  box-shadow: 0 0 0 4px black;
+}
+
+.modal-inner.framed {
+  border: var(--gb-border);
+}
+
+.modal img {
+  animation: bob 2s infinite;
+  image-rendering: pixelated;
+  max-height: 192px; /* Bigger Barry */
+  margin: 1rem auto;
+  display: block;
+}
+
+@keyframes bob {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+}
+</style>
+
+</head>
+<body>
+
+<div class="wrapper">
+
+  <header class="framed primary">
+    <h1>Barry Sharp’s Pro Mover</h1>
+  </header>
+
+  <main>
+
+    <!-- Prompt Panel -->
+    <section class="framed contains-code">
+      <h2>Studio Prompt</h2>
+      <div class="viewable-code">
+        <form onsubmit="handlePrompt(); return false;">
+          <input type="text" id="studioHelperInput" placeholder="Type your prompt..." />
+          <button type="submit">[ ASK STUDIO ASSISTANT ]</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- System Status -->
+    <section class="framed contains-code">
+      <h2>System Monitor</h2>
+      <div class="viewable-code">
+        <div class="framed primary">
+          <p>RAM: 16GB</p>
+          <div class="progress-bar p65"></div>
+          <p><small><span class="status-dot"></span> OLLAMA: MISTRAL (ACTIVE)</small></p>
+          <p><small><span class="status-dot"></span> PHI-3: (IDLE)</small></p>
+          <p><small><span class="status-dot"></span> RAG INDEX: BARRY_KB (READY)</small></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Project Agent Controls -->
+    <section class="framed contains-code">
+      <h2>Project Agent</h2>
+      <div class="viewable-code">
+        <button onclick="logCommand('Project Manager activated')">[ PROJECT MANAGER ]</button>
+        <form onsubmit="logCommand('Executed: ' + document.getElementById('projectCommand').value); return false;">
+          <input type="text" id="projectCommand" placeholder="Enter command..." />
+          <button type="submit">[ EXECUTE TASK ]</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Assistant Output -->
+    <section class="framed contains-code">
+      <h2>Studio Assistant Output</h2>
+      <div class="viewable-code">
+        <div class="framed secondary" id="studioHelperOutput">
+          <p><em>Awaiting prompt...</em></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Log Terminal -->
+    <section class="framed contains-code">
+      <h2>System Log</h2>
+      <div class="viewable-code">
+        <div class="framed tertiary" id="logDisplay" style="max-height:160px; overflow-y:auto;">
+          <p>[System initialized...]</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="framed">
+    <p><small>GameBoy UI by Luttje. Adapted for LangFlow AI development.</small></p>
+  </footer>
+
+</div>
+
+<script>
+function handlePrompt() {
+  const input = document.getElementById('studioHelperInput');
+  const output = document.getElementById('studioHelperOutput');
+  const log = document.getElementById('logDisplay');
+  const val = input.value.trim();
+  if (!val) return;
+
+  output.innerHTML = '<p><strong>Assistant:</strong> ' + val + '</p>';
+  const timestamp = new Date().toLocaleTimeString();
+  const logEntry = document.createElement("p");
+  logEntry.textContent = `[${timestamp}] Prompt submitted: "${val}"`;
+  log.appendChild(logEntry);
+  log.scrollTop = log.scrollHeight;
+}
+
+function logCommand(command) {
+  const log = document.getElementById('logDisplay');
+  const timestamp = new Date().toLocaleTimeString();
+  const line = document.createElement("p");
+  line.textContent = `[${timestamp}] ${command}`;
+  log.appendChild(line);
+  log.scrollTop = log.scrollHeight;
+}
+
+function closeModal() {
+  const modal = document.getElementById('startup-modal');
+  modal.classList.remove('active');
+  modal.style.display = 'none';
+}
+
+</script>
+
+<div class="modal active" id="startup-modal">
+  <div class="modal-inner framed primary contains-code">
+    <h2>HEY, MAN.</h2>
+    <p>HP:</p>
+    <div class="progress-bar p65 bg-orange"></div>
+    <img src="/assets/barry_head.png" alt="Barry's Floating Head" />
+    <div class="framed">
+      <p><strong>barry sharp:</strong> ya know...i don't approve of this.</p>
+      <button onclick="closeModal()">[ GET ON THE TRUCK ]</button>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

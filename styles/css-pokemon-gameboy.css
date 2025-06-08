@@ -1,0 +1,385 @@
+:root {
+  --font-content: 'Pokemon GB';
+  --font-heading: 'Press Start 2P';
+
+  --neutral: #F8F3F8;
+  --contrast: #181010;
+  --primary-accent: #48A058;
+  --secondary-accent: #F0B088;
+  --danger-accent: #B3181C;
+  /* SCSS change-color function cannot be directly translated to CSS. 
+     Approximating with rgba for dimmed colors. */
+  --dimmed: rgba(24, 16, 16, 0.6); 
+  --dimmed-light: rgba(248, 243, 248, 0.6);
+
+  --min-width: 320px;
+  --size: 2em;
+
+  --padding: 1em;
+  --medium-padding: 2em;
+  --big-padding: 4em;
+  --huge-padding: 8em;
+
+  --small-modifier: 0.5;
+
+  --small-breakpoint: 480px;
+  --medium-breakpoint: 768px;
+  --large-breakpoint: 1024px;
+}
+
+
+@font-face {
+  font-family: "Pokemon GB";
+  src: url("../src/fonts/Pokemon GB.woff") format('woff');
+  src: url("../src/fonts/Pokemon GB.ttf") format('truetype');
+}
+
+@font-face {
+  font-family: "Press Start 2P";
+  src: url("../src/fonts/PressStart2P-Regular.woff") format('woff');
+  src: url("../src/fonts/PressStart2P-Regular.ttf") format('truetype');
+}
+
+* {
+  box-sizing: border-box;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+}
+
+.framed {
+  position: relative;
+  border-image: url('../src/images/frame-hd.png') 42 round;
+  border-width: 21px;
+  border-style: solid;
+  padding: var(--padding);
+  margin: var(--padding) 0 0 0;
+  width: 100%;
+  max-width: 100%;
+}
+
+.framed.no-hd {
+  border-image: url('../src/images/frame.png') 7 round;
+  border-width: 7px;
+}
+
+.framed.neutral {
+  background: var(--neutral);
+  color: var(--contrast);
+}
+
+.framed.neutral.exclude-border {
+  background-clip: padding-box;
+}
+
+.framed.primary {
+  background: var(--primary-accent);
+  color: var(--neutral);
+  text-shadow:
+    -1px -1px 0 var(--contrast),
+    1px -1px 0 var(--contrast),
+    -1px 1px 0 var(--contrast),
+    1px 1px 0 var(--contrast);
+}
+
+.framed.primary.exclude-border {
+  background-clip: padding-box;
+}
+
+.framed.secondary {
+  background: var(--secondary-accent);
+  color: var(--neutral);
+  text-shadow:
+    -1px -1px 0 var(--contrast),
+    1px -1px 0 var(--contrast),
+    -1px 1px 0 var(--contrast),
+    1px 1px 0 var(--contrast);
+}
+
+.framed.secondary.exclude-border {
+  background-clip: padding-box;
+}
+
+.framed.danger {
+  background: var(--danger-accent);
+  color: var(--neutral);
+  text-shadow:
+    -1px -1px 0 var(--contrast),
+    1px -1px 0 var(--contrast),
+    -1px 1px 0 var(--contrast),
+    1px 1px 0 var(--contrast);
+}
+
+.framed.danger.exclude-border {
+  background-clip: padding-box;
+}
+
+.stats {
+  position: relative;
+  border: 4px solid var(--contrast);
+  border-top: none;
+  border-right: none;
+  padding: var(--padding);
+}
+
+.stats::after {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  display: inline-block;
+  content: '';
+  width: 2px;
+  height: 2px;
+  font-size: 2px;
+  color: var(--contrast);
+  box-shadow:
+    -4em -1em 0 var(--contrast), -5em -1em 0 var(--contrast),
+    -4em 0 0 var(--contrast), -5em 0 0 var(--contrast),
+    -3em 0 0 var(--contrast), -2em 0 0 var(--contrast),
+    1em 2em 0 var(--contrast), 1em 2em 0 var(--contrast),
+    2em 2em 0 var(--contrast), 2em 2em 0 var(--contrast);
+}
+
+.stats h2 {
+  background-color: var(--neutral);
+  margin-left: calc(var(--padding) * -1);
+  margin-top: calc(var(--padding) * -1);
+  padding: var(--padding) var(--padding) var(--padding) 0;
+}
+
+a.button,
+a.button:hover,
+a.button:active {
+  color: var(--contrast);
+  text-decoration: none;
+}
+
+button,
+.button {
+  position: relative;
+  font-family: var(--font-content);
+  font-size: 1em;
+  background: none;
+  border: none;
+  padding: 0 0 0 var(--padding);
+  text-transform: uppercase;
+  text-align: left;
+  cursor: pointer;
+}
+
+button:hover::before,
+.button:hover::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -2px;
+  width: 2px;
+  height: 2px;
+  font-size: 2px;
+  color: var(--contrast);
+  box-shadow:
+    1em 0em 0 var(--contrast), 2em 0em 0 var(--contrast),
+    1em 1em 0 var(--contrast), 2em 1em 0 var(--contrast), 3em 1em 0 var(--contrast),
+    1em 2em 0 var(--contrast), 2em 2em 0 var(--contrast), 3em 2em 0 var(--contrast), 4em 2em 0 var(--contrast),
+    1em 3em 0 var(--contrast), 2em 3em 0 var(--contrast), 3em 3em 0 var(--contrast), 4em 3em 0 var(--contrast), 5em 3em 0 var(--contrast),
+    1em 4em 0 var(--contrast), 2em 4em 0 var(--contrast), 3em 4em 0 var(--contrast), 4em 4em 0 var(--contrast),
+    1em 5em 0 var(--contrast), 2em 5em 0 var(--contrast), 3em 5em 0 var(--contrast),
+    1em 6em 0 var(--contrast), 2em 6em 0 var(--contrast);
+}
+
+button.pokemon,
+.button.pokemon {
+  text-indent: -1000em;
+  width: 100%;
+  background: url('../src/images/pkmn.png') 1em center no-repeat;
+  background-size: contain;
+}
+
+ul.buttons {
+  display: inline-flex;
+  padding: 0;
+  list-style: none;
+  flex-direction: column;
+}
+
+ul.buttons li {
+  padding: 0;
+  margin: 0.5em;
+}
+
+ul.buttons.compact {
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+ul.buttons.compact li {
+  flex-basis: 45%;
+}
+
+.progress-bar-container {
+  display: flex;
+  align-items: center;
+}
+
+@media screen and (max-width: var(--medium-breakpoint)) {
+  .progress-bar-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+.progress-bar-container label {
+  margin-right: var(--padding);
+}
+
+@media screen and (max-width: var(--medium-breakpoint)) {
+  .progress-bar-container label {
+    margin-bottom: calc(var(--padding) * var(--small-modifier));
+    margin-right: 0;
+  }
+}
+
+.progress-bar-container .progress-bar,
+.progress-bar-container progress {
+  position: relative;
+  flex-grow: 1;
+  height: 4px;
+  border: 2px solid transparent;
+  border-image-slice: 1;
+  border-image-width: 2px;
+  border-block: 0;
+  border-image-outset: 2px 0 2px 0;
+  border-image-repeat: stretch stretch;
+  border-image-source: url('../src/images/progress-frame.png');
+  background: none;
+  background-clip: padding-box;
+}
+
+.progress-bar-container progress::-webkit-progress-bar {
+  background: none;
+}
+
+.progress-bar-container progress::-webkit-progress-value,
+.progress-bar-container progress.primary::-webkit-progress-value,
+.progress-bar-container progress.primary::-moz-progress-bar {
+  background: var(--primary-accent);
+}
+
+/* Manually created rules for common percentages */
+.progress-bar-container .progress-bar.p20::after {
+  content: '';
+  display: inline-block;
+  position: absolute;
+  background: var(--danger-accent);
+  width: 20%;
+  height: 4px;
+  top: 0;
+  left: 0;
+}
+
+.progress-bar-container .progress-bar.p50::after {
+  content: '';
+  display: inline-block;
+  position: absolute;
+  background: var(--secondary-accent);
+  width: 50%;
+  height: 4px;
+  top: 0;
+  left: 0;
+}
+
+.progress-bar-container .progress-bar.p80::after {
+  content: '';
+  display: inline-block;
+  position: absolute;
+  background: var(--primary-accent);
+  width: 80%;
+  height: 4px;
+  top: 0;
+  left: 0;
+}
+
+.progress-bar-container .progress-bar.primary::after {
+  background: var(--primary-accent);
+}
+
+/* For Firefox */
+.progress-bar-container progress[value]::-moz-progress-bar {
+  height: 4px;
+}
+
+.progress-bar-container progress[value="20"]::-moz-progress-bar {
+  background: var(--danger-accent);
+}
+
+.progress-bar-container progress[value="50"]::-moz-progress-bar {
+  background: var(--secondary-accent);
+}
+
+.progress-bar-container progress[value="80"]::-moz-progress-bar {
+  background: var(--primary-accent);
+}
+
+/* For Webkit (Chrome, Safari) */
+.progress-bar-container progress.p20::-webkit-progress-value {
+  background: var(--danger-accent);
+}
+
+.progress-bar-container progress.p50::-webkit-progress-value {
+  background: var(--secondary-accent);
+}
+
+.progress-bar-container progress.p80::-webkit-progress-value {
+  background: var(--primary-accent);
+}
+
+
+body {
+  font-family: var(--font-content);
+  font-smooth: never;
+  -webkit-font-smoothing: none;
+
+  min-width: var(--min-width);
+  padding: var(--big-padding);
+  margin: 0;
+
+  background: var(--neutral);
+  color: var(--contrast);
+
+  image-rendering: pixelated;
+}
+
+@media screen and (max-width: var(--medium-breakpoint)) {
+  body {
+    padding: var(--medium-padding);
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: normal;
+}
+
+h1 {
+  margin-bottom: var(--padding);
+}
+
+.wrapper {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.message span {
+  font-weight: bolder;
+}
