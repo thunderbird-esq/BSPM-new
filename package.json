@@ -1,0 +1,43 @@
+{
+  "name": "barry-sharps-pro-mover",
+  "version": "1.0.0",
+  "description": "A Game Boy-style CSS interface for Barry Sharp's Pro Mover, built with Vite.",
+  "author": {
+    "name": "THUNDERBIRD.ESQ",
+    "url": "https://www.thunderbird.esq"
+  },
+  "license": "MIT",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thunderbird-esq/BSPM-new.git"
+  },
+  "homepage": "https://thunderbird-esq.github.io/BSPM-new/",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "deploy": "gh-pages -d dist",
+    "build:css": "vite build --config config/vite.lib.config.js",
+    "build:css:full": "vite build --config config/vite.lib.full.config.js",
+    "licenses": "npx license-checker-rseidelsohn --plainVertical --out LICENSES-THIRD-PARTY.md"
+  },
+  "files": [
+    "dist/",
+    "styles/css-pokemon-gameboy.css"
+  ],
+  "dependencies": {
+    "prismjs": "^1.29.0",
+    "redent": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/prismjs": "^1.26.4",
+    "gh-pages": "^6.3.0",
+    "license-checker-rseidelsohn": "^4.2.0",
+    "sass": "^1.77.8",
+    "typescript": "^5.2.2",
+    "vite": "^6.3.5"
+  }
+}
+
