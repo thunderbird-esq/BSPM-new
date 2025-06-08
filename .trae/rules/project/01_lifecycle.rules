@@ -1,0 +1,10 @@
+# Enforce linear stage flow
+rule:
+  id: lifecycle-linear
+  name: Linear Development Phases
+  description: >
+    Work must proceed through the following stages in order:
+    PM Review → Department Contribution → PM Evaluation → QA → Release.
+    No agent may skip, overlap, or fork a phase.
+  phase: all
+  level: warning

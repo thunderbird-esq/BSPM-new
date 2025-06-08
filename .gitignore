@@ -1,14 +1,12 @@
 # Node.js
 node_modules/
 dist/
+.vite/
 .vitepress/dist
 npm-debug.log*
 .yarn*
 .pnpm*
 *.tsbuildinfo
-
-# Vite artifacts
-.vite/
 
 # LangFlow runtime state (symlinked/shared)
 flows/
@@ -16,17 +14,13 @@ vectorstore/
 logs/
 __pycache__/
 *.sqlite3
+*.autosave.json
 
-# Virtual Environments
+# Python
 .venv/
 .env
 .env.*
-
-# Python
-*.pyc
-*.pyo
-*.pyd
-.Python
+*.py[cod]
 *.egg-info/
 .eggs/
 pip-log.txt
@@ -39,23 +33,23 @@ htmlcov/
 .dmypy.json
 .pytest_cache/
 
-# VSCode + system-specific
+# GBStudio CLI + build artifacts
+/build/
+*.gb
+*.gbsproj.backup
+
+# Scripts and temp
+*.swp
+*.bak
+scripts/test-build.sh
+
+# Mac + IDE-specific
 .DS_Store
 .idea/
 .vscode/
-*.swp
-
-# Build artifacts
-/build/
-scripts/test-build.sh
-
-
-# 🛑 LangFlow Runtime State (shared, temp, cache)
-flows/
-logs/
-vectorstore/
-*.swp
-*.tmp
-.cache/
 *.log
+
+# TRAE IDE
+.trae/
+trae-debug.log
 

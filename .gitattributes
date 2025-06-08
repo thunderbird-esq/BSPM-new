@@ -1,0 +1,19 @@
+# Normalize all text files to LF
+* text=auto eol=lf
+
+# Treat JSON, Markdown, YAML as UTF-8 text
+*.json text
+*.md text
+*.yml text
+*.yaml text
+
+# Lock down binaries
+*.gb binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ttf binary
+*.woff binary
+*.zip binary
+

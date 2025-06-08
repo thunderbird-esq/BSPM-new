@@ -1,0 +1,10 @@
+# TRAE CORE RULE: Enforce Org Chart Adherence
+rule:
+  id: core-architecture
+  name: Org Chart Must Be Respected
+  description: >
+    All AI agents (PM, QA, Design, Code, Assets) must refer to
+    ORG_CHART_FULL.png before taking independent action.
+    If uncertain, agents must STOP and consult a human.
+  phase: all
+  level: error
