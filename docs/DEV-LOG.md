@@ -62,3 +62,18 @@ Tonight marked a major milestone in structuring, validating, and deploying our G
 🛠️ Everything is in motion. No garbage, no clutter. Agents are coming online.
 
 xo TBESQ
+
+---
+
+## ✅ Summary of Progress (2025-06-19)
+
+Today we introduced the basic automation hub layout.
+
+- Added a `docker-compose.yml` that spins up LangFlow, Ollama and ComfyUI so the environment can be run with a single command.
+- Created placeholder directories (`agent_memory`, `langflow_graphs`, `project_files`, `project_docs`) with `.gitkeep` files so new contributors know where data will live.
+- Implemented the first LangFlow custom component `DepartmentOrchestrator` under `langflow_components/`.
+- Downloaded a starter GBStudio project file for `game/barry-sharp.gbsproj`.
+- Replaced the broken `gbstudio-cli` symlink with a regular folder holding a README to explain where the patched CLI should go.
+- Wrote a simple README with step-by-step instructions for running the stack.
+
+These changes make it possible for anyone with Docker installed to bring up the agents and begin creating LangFlow graphs without extra setup.
